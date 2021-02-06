@@ -1,0 +1,126 @@
+{% extends 'base.html'%}
+{% load static %}
+{% load cache %}
+{% load popular_bar %}
+{% block content %}
+<!-- ##### Welcome Area Start ##### -->
+    <section class="welcome_area bg-img background-overlay">
+        <div class="container h-100">
+            <div class="row h-100 align-items-center">
+                <div class="col-12">
+                    <div class="hero-content">
+                        {% comment %} <h6>asoss</h6> {% endcomment %}
+                        <h2>New Collection</h2>
+                        <a href="{% url 'shop' %}" class="btn essence-btn">view collection</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ##### Welcome Area End ##### -->
+
+    <!-- ##### Top Catagory Area Start ##### -->
+    <div class="top_catagory_area section-padding-80 clearfix">
+        <div class="container">
+            <div class="row justify-content-center">
+                <!-- Single Catagory -->
+                <div class="col-12 col-sm-6 col-md-4">
+                    <div class="single_catagory_area d-flex align-items-center justify-content-center bg-img" >
+                        <div class="catagory-content">
+                            <a href="{{ categories1.get_absolute_url }}">{{ categories1.name }}</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Single Catagory -->
+                <div class="col-12 col-sm-6 col-md-4">
+                    <div class="single_catagory_area d-flex align-items-center justify-content-center bg-img" >
+                        <div class="catagory-content">
+                            <a href="{{ categories2.get_absolute_url }}">{{ categories2.name }}</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Single Catagory -->
+                <div class="col-12 col-sm-6 col-md-4">
+                    <div class="single_catagory_area d-flex align-items-center justify-content-center bg-img" >
+                        <div class="catagory-content">
+                            <a href="{{ categories3.get_absolute_url }}">{{ categories3.name }}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ##### Top Catagory Area End ##### -->
+
+    <!-- ##### CTA Area Start ##### -->
+    <div class="cta-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="cta-content bg-img background-overlay">
+                        <div class="h-100 d-flex align-items-center justify-content-end">
+                            <div class="cta--text">
+                                <h2>Global Sale</h2>
+                                <a href="{% url 'shop' %}" class="btn essence-btn">Buy Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ##### CTA Area End ##### -->
+
+    <!-- ##### New Arrivals Area Start ##### -->
+    <section class="new_arrivals_area section-padding-80 clearfix">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-heading text-center">
+                        <h2>Popular Product's</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                {% cache 120 get_popular %}
+                    {% get_popular %}
+                {% endcache %}    
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ##### New Arrivals Area End ##### -->
+
+    <!-- ##### Brands Area Start ##### -->
+    <div class="brands-area d-flex align-items-center justify-content-between">
+        <!-- Brand Logo -->
+        <div class="single-brands-logo">
+            <img src="{% static 'img/core-img/brand1.png' %}" alt="">
+        </div>
+        <!-- Brand Logo -->
+        <div class="single-brands-logo">
+            <img src="{% static 'img/core-img/brand2.png' %}" alt="">
+        </div>
+        <!-- Brand Logo -->
+        <div class="single-brands-logo">
+            <img src="{% static 'img/core-img/brand3.png' %}" alt="">
+        </div>
+        <!-- Brand Logo -->
+        <div class="single-brands-logo">
+            <img src="{% static 'img/core-img/brand4.png' %}" alt="">
+        </div>
+        <!-- Brand Logo -->
+        <div class="single-brands-logo">
+            <img src="{% static 'img/core-img/brand5.png' %}" alt="">
+        </div>
+        <!-- Brand Logo -->
+        <div class="single-brands-logo">
+            <img src="{% static 'img/core-img/brand6.png' %}" alt="">
+        </div>
+    </div>
+    <!-- ##### Brands Area End ##### -->
+{% endblock %}

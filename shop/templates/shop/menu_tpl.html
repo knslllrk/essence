@@ -1,0 +1,22 @@
+<div class="{{ menu_class }}"> 
+        <ul class="single-mega cn-col-3">
+            <li class="title"><a href="{{ categories1.get_absolute_url }}">{{ categories1.name }}</a></li>
+            {% for subcategory in subcategories1 %}
+                <li><a href="{{ subcategory.get_absolute_url }}">{{ subcategory.name }}</a></li>
+            {% endfor %}
+        </ul>
+
+        <ul class="single-mega cn-col-3">
+            <li class="title"><a href="{{ categories2.get_absolute_url }}">{{ categories2.name }}</a></li>
+            {% for subcategory in subcategories2 %}
+                <li><a href="{{ subcategory.get_absolute_url }}">{{ subcategory.name }}</a></li>
+            {% endfor %}
+        </ul>
+
+        <ul class="single-mega cn-col-3">
+            <li class="title"><a href="{{ categorie3.get_absolute_url }}">{{ categories3.name }}</a></li>
+            {% for subcategory in subcategories3 %}
+                <li><a href="{{ subcategory.get_absolute_url }}">{{ subcategory.name }}</a></li>
+            {% endfor %}
+        </ul>   
+</div>

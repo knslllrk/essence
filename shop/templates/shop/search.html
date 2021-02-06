@@ -1,0 +1,165 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load cache %}
+{% load menul %}
+{% block content %}
+
+<!-- ##### Breadcumb Area Start ##### -->
+<div class="breadcumb_area bg-img">
+    <div class="container h-100">
+        <div class="row h-100 align-items-center">
+            <div class="col-12">
+                <div class="page-title text-center">
+                    <h2>product's</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ##### Breadcumb Area End ##### -->
+
+<!-- ##### Shop Grid Area Start ##### -->
+<section class="shop_grid_area section-padding-80">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-4 col-lg-3">
+                <div class="shop_sidebar_area">
+
+                    <!-- ##### Single Widget ##### -->
+                    <div class="widget catagory mb-50">
+                        <!-- Widget Title -->
+                        <h6 class="widget-title mb-30">Categories</h6>
+                        {% cache 60 show_menul %}
+                            {% show_menul %}
+                        {% endcache %}
+                    </div>
+
+                    {% comment %} <!-- ##### Single Widget ##### -->
+                    <div class="widget price mb-50">
+                        <!-- Widget Title -->
+                        <h6 class="widget-title mb-30">Filter by</h6>
+                        <!-- Widget Title 2 -->
+                        <p class="widget-title2 mb-30">Price</p>
+
+                        <div class="widget-desc">
+                            <div class="slider-range">
+                                <div data-min="49" data-max="360" data-unit="$" class="slider-range-price ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" data-value-min="49" data-value-max="360" data-label-result="Range:">
+                                    <div class="ui-slider-range ui-widget-header ui-corner-all"></div>
+                                    <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
+                                    <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
+                                </div>
+                                <div class="range-price">Range: $49.00 - $360.00</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ##### Single Widget ##### -->
+                    <div class="widget brands mb-50">
+                        <!-- Widget Title 2 -->
+                        <p class="widget-title2 mb-30">Brands</p>
+                        <div class="widget-desc">
+                            <ul>
+                                <li><a href="#">Asos</a></li>
+                                <li><a href="#">Mango</a></li>
+                                <li><a href="#">River Island</a></li>
+                                <li><a href="#">Topshop</a></li>
+                                <li><a href="#">Zara</a></li>
+                            </ul>
+                        </div>
+                    </div> {% endcomment %}
+                </div>
+            </div>
+
+            <div class="col-12 col-md-8 col-lg-9">
+                <div class="shop_grid_product_area">
+                    {% comment %} <div class="row">
+                        <div class="col-12">
+                            <div class="product-topbar d-flex align-items-center justify-content-between">
+                                <!-- Sorting -->
+                                <div class="product-sorting d-flex">
+                                    <p>Sort by:</p>
+                                    <form action="#" method="get">
+                                        <select name="select" id="sortByselect">
+                                                <option value="value">Highest Rated</option>
+                                                <option value="value">Newest</option>
+                                                <option value="value">Price: $$ - $</option>
+                                                <option value="value">Price: $ - $$</option>
+                                            </select>
+                                        <input type="submit" class="d-none" value="">
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div> {% endcomment %}
+
+                    <div class="row">
+
+                        <!-- Single Product -->
+                        {% for product in products %}
+                        <div class="col-12 col-sm-6 col-lg-4">
+                            <div class="single-product-wrapper">
+                                <!-- Product Image -->
+                                <div class="product-img">
+                                    <img src="{{ product.image.url }}" alt="">
+                                    <!-- Hover Thumb -->
+                                    <img class="hover-img" src="{{ product.image_hover.url }}" alt="">
+
+                                    <!-- Favourite -->
+                                    <div class="product-favourite">
+                                        <a href="#" class="favme fa fa-heart"></a>
+                                    </div>
+                                </div>
+
+                                <!-- Product Description -->
+                                <div class="product-description">
+                                    <span>{{ product.brand }}</span>
+                                    <a href="{{ product.get_absolute_url }}">
+                                        <h6>{{ product.name }}</h6>
+                                    </a>
+                                    <p class="product-price">${{ product.price }}</p>
+
+                                    <!-- Hover Content -->
+                                    <div class="hover-content">
+                                        <!-- Add to Cart -->
+                                        <div class="add-to-cart-btn">
+                                            <a href="{% url "cart:cart_add" product.id %}" class="btn essence-btn">Add to Cart</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% empty %}
+                            <p>По вашему запросу ничего не найдено...</p>
+                        {% endfor %}
+
+                    </div>
+                </div>
+
+                <!-- Pagination -->
+                {% if page_obj.has_other_pages %}
+                <nav aria-label="navigation">
+                    <ul class="pagination mt-50 mb-70">
+                        {% if page_obj.has_previous %}
+                            <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}"><i class="fa fa-angle-left"></i></a></li>
+                        {% endif %}
+                        {% for p in page_obj.paginator.page_range %}
+                            {% if page_obj.number == p %}                        
+                            <li class="page-item"><a class="page-link" href="?{{ search }}page={{ p }}">{{ p }}</a></li>
+                            {% elif p > page_obj.number|add:-3 and p < page_obj.number|add:3 %}
+                            <li class="page-item"><a class="page-link" href="?{{ search }}page={{ p }}">{{ p }}</a></li>
+                            {% endif %}
+                        {% endfor %}
+                        {% if page_obj.has_next %}
+                            <li class="page-item"><a class="page-link" href="?{{ search }}page={{ page_obj.next_page_number }}"><i class="fa fa-angle-right"></i></a></li>
+                        {% endif %}
+                    </ul>
+                </nav>
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ##### Shop Grid Area End ##### -->
+
+{% endblock %}

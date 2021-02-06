@@ -1,0 +1,77 @@
+{% load static %} {% load menu %}
+<!-- ##### Header Area Start ##### -->
+<header class="header_area">
+    <div class="classy-nav-container breakpoint-off d-flex align-items-center justify-content-between">
+        <!-- Classy Menu -->
+        <nav class="classy-navbar" id="essenceNav">
+            <!-- Logo -->
+            <a class="nav-brand" href="{% url 'start' %}"><img src="{% static 'img/core-img/logo.png' %}" alt=""></a>
+            <!-- Navbar Toggler -->
+            <div class="classy-navbar-toggler">
+                <span class="navbarToggler"><span></span><span></span><span></span></span>
+            </div>
+            <!-- Menu -->
+            <div class="classy-menu">
+                <!-- close btn -->
+                <div class="classycloseIcon">
+                    <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
+                </div>
+                <!-- Nav Start -->
+                <div class="classynav">
+                    <ul>
+                        <li><a href="#">Shop</a> 
+                            {% show_menu %}
+                        </li>
+                        <li><a href="#">Pages</a>
+                            <ul class="dropdown">
+                                <li><a href="{% url 'start' %}">Home</a></li>
+                                <li><a href="{% url 'shop' %}">Shop</a></li>
+                                <li><a href="{% url 'contact' %}">Contact</a></li>
+                            </ul>
+                        </li>
+
+                        <li><a href="{% url 'contact' %}">Contact</a></li>
+                    </ul>
+                </div>
+                <!-- Nav End -->
+            </div>
+        </nav>
+
+        <!-- Header Meta Data -->
+        <div class="header-meta d-flex clearfix justify-content-end">
+            <!-- Search Area -->
+            <div class="search-area">
+                <form action="{% url 'search' %}" method="get">
+                    <input type="text" name="search" id="headerSearch" placeholder="Type for search">
+                    <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+                </form>
+            </div>
+            {% comment %} <!-- Favourite Area -->
+            <div class="favourite-area">
+                <a href="#"><img src="{% static 'img/core-img/heart.svg' %}" alt=""></a>
+            </div> {% endcomment %}
+            <!-- User Login Info -->
+            <div class="user-login-info">
+                {% if request.user.is_authenticated %}
+                    <a href="{% url "logout" %}"><img src="{% static 'img/core-img/user.svg' %}" alt="">Logout</a>
+                {% else %}
+                    <a href="{% url "login" %}"><img src="{% static 'img/core-img/user.svg' %}" alt="">Login</a>
+                {% endif %}
+            </div>
+            <!-- Cart Area -->
+            <div class="cart-area">
+                <a href="#" id="essenceCartBtn"><img src="{% static 'img/core-img/bag.svg' %}" alt=""> 
+                {% with total_items=cart|length %}
+                {% if cart|length > 0 %}
+                    <span>{{ total_items }}</span>
+                {% else %}
+                    <span>0</span>
+                {% endif %}
+                {% endwith %}
+                </a>
+            </div>
+        </div>
+
+    </div>
+</header>
+<!-- ##### Header Area End ##### -->

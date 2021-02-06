@@ -1,0 +1,34 @@
+<!--  Categories  -->
+<div class="{{ menu_class }}">
+    <ul id="menu-content2" class="menu-content collapse show">
+        <!-- Single Item -->
+        <li data-toggle="collapse" data-target="#clothing">
+            <a href="#">{{ categories1.name }}</a>
+            <ul class="sub-menu collapse show" id="clothing">
+            {% for subcategory in subcategories1 %}
+                <li><a href="{{ subcategory.get_absolute_url }}">{{ subcategory.name }}</a></li>
+            {% endfor %}    
+            </ul>
+        </li>
+
+        <!-- Single Item -->
+        <li data-toggle="collapse" data-target="#shoes">
+            <a href="#">{{ categories2.name }}</a>
+            <ul class="sub-menu collapse show" id="shoes">
+            {% for subcategory in subcategories2 %}
+                <li><a href="{{ subcategory.get_absolute_url }}">{{ subcategory.name }}</a></li>
+            {% endfor %}    
+            </ul>
+        </li>
+
+        <!-- Single Item -->
+        <li data-toggle="collapse" data-target="#accessories">
+            <a href="#">{{ categories3.name }}</a>
+            <ul class="sub-menu collapse show" id="accessories">
+            {% for subcategory in subcategories3 %}
+                <li><a href="{{ subcategory.get_absolute_url }}">{{ subcategory.name }}</a></li>
+            {% endfor %}    
+            </ul>
+        </li>
+    </ul>
+</div>

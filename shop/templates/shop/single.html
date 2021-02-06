@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+    <!-- ##### Single Product Details Area Start ##### -->
+    <section class="single_product_details_area d-flex align-items-center">
+
+        <!-- Single Product Thumb -->
+        <div class="single_product_thumb clearfix">
+            <div class="product_thumbnail_slides owl-carousel">
+                <img src="{{ product.image.url }}" alt="">
+                <img src="{{ product.image_hover.url }}" alt="">
+            </div>
+        </div>
+
+        <!-- Single Product Description -->
+        <div class="single_product_desc clearfix">
+            <span>{{ product.brand }}</span>
+            <a href="cart.html">
+                <h2>{{ product.name }}</h2>
+            </a>
+            <p class="product-price">$ {{ product.price }}</p>
+            <p class="product-desc">{{ product.description }}</p>
+
+            <!-- Form -->
+            <form action="{% url "cart:cart_add" product.id %}" class="cart-form clearfix" method="post">
+                {% csrf_token %}
+                {{ cart_product_form }}
+                <button type="submit" name="addtocart" class="btn essence-btn">Add to cart</button>    
+                {% comment %} <!-- Cart & Favourite Box -->
+                <div class="cart-fav-box d-flex align-items-center">
+                    <!-- Cart -->
+                    
+                    <!-- Favourite -->
+                    <div class="product-favourite ml-4">
+                        <a href="#" class="favme fa fa-heart"></a>
+                    </div>  
+                </div>{% endcomment %}
+            </form>
+        </div>
+    </section>
+    <!-- ##### Single Product Details Area End ##### -->
+
+{% endblock %}

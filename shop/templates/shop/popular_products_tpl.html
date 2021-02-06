@@ -1,0 +1,35 @@
+<div class="popular-products-slides owl-carousel">
+    {% for product in products %}
+    <!-- Single Product -->
+    <div class="single-product-wrapper">
+        <!-- Product Image -->
+        <a href="{{ product.get_absolute_url }}">
+        <div class="product-img">
+            <img src="{{ product.image.url }}" alt="">
+            <!-- Hover Thumb -->
+            <img class="hover-img" src="{{ product.image_hover.url }}" alt="">
+            {% comment %} <!-- Favourite -->
+            <div class="product-favourite">
+                <a href="#" class="favme fa fa-heart"></a>
+            </div> {% endcomment %}
+        </div>
+        </a>
+        <!-- Product Description -->
+        <div class="product-description">
+            <span>{{ product.brand }}</span>
+            <a href="{{ product.get_absolute_url }}">
+                <h6>{{ product.name }}</h6>
+            </a>
+            <p class="product-price">$ {{ product.price }}</p>
+
+            <!-- Hover Content -->
+            <div class="hover-content">
+                <!-- Add to Cart -->
+                <div class="add-to-cart-btn">
+                    <a href="{% url "cart:cart_add" product.id %}" class="btn essence-btn">Add to Cart</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
